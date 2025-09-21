@@ -239,9 +239,6 @@ WantedBy=multi-user.target
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📧 Contact
-
-Project Link: [https://github.com/yourusername/wifi-module-emulator](https://github.com/yourusername/wifi-module-emulator)
 
 ## ✨ Show your support
 
@@ -662,16 +659,12 @@ GET /api/v1/stream?quality=90&fps=30&resolution=1280x720
 - Ensure all tests pass before submitting a PR
 - Add integration tests for critical paths
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 📧 Contact
 
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **Website**: https://yourwebsite.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Author**: Ziad Hassan Abaza
+- **Email**: zeyad.h.abaza@gmail.com
+- **Website**: [https://ziad-abaza.github.io/Portfolio/](https://ziad-abaza.github.io/Portfolio/)
+- **GitHub**: [Ziad-Abaza](https://github.com/Ziad-Abaza)
 
 ## ✨ Show your support
 
@@ -689,59 +682,6 @@ Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of 
 
 - Thanks to all contributors who have helped shape this project
 - Built with ❤️ using Python and OpenCV
-
-## 📝 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of notable changes.
-
-## 📜 Code of Conduct
-
-Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📧 Contact
-
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **Website**: https://yourwebsite.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-
-## ✨ Show your support
-
-Give a ⭐️ if this project helped you!
-
----
-
-*Documentation generated with ❤️ by [Cascade](https://www.windsurf.com)*
-## 📝 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of notable changes.
-
-## 📜 Code of Conduct
-
-Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📧 Contact
-
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **Website**: https://yourwebsite.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-
-## ✨ Show your support
-
-Give a ⭐️ if this project helped you!
-
----
-
-*Documentation generated with ❤️ by [Cascade](https://www.windsurf.com)*
 
 ## ESP Camera Server (esp_cam_server.py)
 
