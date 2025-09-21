@@ -62,19 +62,48 @@ A high-performance, production-grade emulation suite for WiFi modules, designed 
 | Memory Usage | ~10MB | ~200MB (with video) |
 | CPU Usage | <1% per connection | 10-50% (video encoding) |
 
-## 🔐 Security Considerations
+## 📥 Download & Run
 
-### Authentication
-- **API Key Authentication**
-- **JWT Token Support**
-- **IP Whitelisting**
-- **Rate Limiting**
+This repository contains the server used to **test the WiFi controller application**.
 
-### Data Protection
-- **TLS/SSL Encryption**
-- **Secure WebSockets** (WSS)
-- **Data Validation**
-- **Input Sanitization**
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Ziad-Abaza/wifi-controller-app.git
+cd wifi-controller-app
+```
+
+### 2. Install dependencies
+
+```bash
+pip install opencv-python numpy flask flask-cors requests
+```
+
+### 3. Run the server
+
+```bash
+python esp_cam_server.py
+```
+
+### 4. Access the video stream
+
+Open in a browser or MJPEG viewer:
+
+```
+http://<your-pc-ip>:81/stream
+```
+
+### 5. Control the camera
+
+Send POST requests to port `5000` for command control.
+
+### 6. Mobile Application
+
+This server is designed for testing with the **WiFi Controller Flutter app**:
+
+[WiFi Controller App Repository](https://github.com/Ziad-Abaza/wifi-controller-app.git)
+
+> ⚠️ Note: This setup is intended for testing and development purposes only. Make sure your devices are on the same network.
 
 ## 📈 Monitoring and Logging
 
@@ -111,49 +140,6 @@ HTTP/1.1
 └── /config          - Web configuration
 ```
 
-## 🚀 Getting Started
-
-### Quick Start
-```bash
-# Clone repository
-git clone https://github.com/yourusername/wifi-module-emulator.git
-cd wifi-module-emulator
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start TCP Server
-python tcp_server.py --port 5000 --max-connections 100
-
-# Start ESP32-CAM Emulator
-python esp_cam_server.py --http-port 81 --api-port 5001
-```
-
-### Configuration
-Create a `config.yaml` file:
-```yaml
-server:
-  tcp_port: 5000
-  http_port: 81
-  api_port: 5001
-  max_connections: 100
-  log_level: INFO
-
-camera:
-  resolution: 1280x720
-  fps: 30
-  format: MJPG
-  quality: 90
-  rotation: 0
-
-security:
-  enable_auth: true
-  api_key: your-secure-api-key
-  allowed_ips:
-    - 192.168.1.0/24
-    - 10.0.0.0/8
-```
-
 ## 📚 Advanced Usage
 
 ### Custom Command Handlers
@@ -185,46 +171,6 @@ server = CameraServer(
     fps=60
 )
 server.start()
-```
-
-## 🧪 Testing
-
-### Unit Tests
-```bash
-python -m pytest tests/
-```
-
-### Load Testing
-```bash
-# Install locust
-pip install locust
-
-# Run load test
-locust -f tests/load_test.py
-```
-
-## 📦 Deployment
-
-### Docker
-```bash
-docker build -t wifi-emulator .
-docker run -p 5000:5000 -p 81:81 wifi-emulator
-```
-
-### Systemd Service
-```ini
-[Unit]
-Description=WiFi Module Emulator
-After=network.target
-
-[Service]
-User=wifi
-WorkingDirectory=/opt/wifi-emulator
-ExecStart=/usr/bin/python3 /opt/wifi-emulator/tcp_server.py
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
 ```
 
 ## 🤝 Contributing
@@ -274,372 +220,6 @@ graph LR
     H <--> I[Camera Controller]
     I --> J[Camera Hardware]
 ```
-
-## 🚀 Getting Started (Detailed)
-
-### Prerequisites
-
-#### Python Environment Setup
-```bash
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install development dependencies
-pip install -r requirements-dev.txt
-```
-
-#### Hardware Requirements
-- **Minimum**:
-  - Dual-core CPU @ 2.0GHz
-  - 2GB RAM
-  - 100Mbps Ethernet/WiFi
-  - Webcam (for camera features)
-
-- **Recommended**:
-  - Quad-core CPU @ 3.0GHz+
-  - 8GB+ RAM
-  - Gigabit Ethernet
-  - USB 3.0 Webcam
-  - SSD Storage
-
-### Installation
-
-#### From Source
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/wifi-module-emulator.git
-cd wifi-module-emulator
-
-# Install in development mode
-pip install -e .
-```
-
-#### Using Docker
-```bash
-# Build the image
-docker build -t wifi-emulator .
-
-# Run with custom ports
-docker run -d \
-  --name wifi-emulator \
-  -p 5000:5000 \
-  -p 81:81 \
-  -v $(pwd)/config:/app/config \
-  wifi-emulator
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-```bash
-# Server Configuration
-SERVER_HOST=0.0.0.0
-SERVER_PORT=5000
-MAX_CONNECTIONS=1000
-LOG_LEVEL=INFO
-
-# Camera Configuration
-CAMERA_SOURCE=0  # 0 for default camera, or video file path
-RESOLUTION=1280x720
-FPS=30
-VIDEO_CODEC=MJPG
-QUALITY=90
-
-# Security
-ENABLE_AUTH=true
-API_KEY=your-secure-key
-ALLOWED_IPS=192.168.1.0/24,10.0.0.0/8
-```
-
-### Configuration File (config.yaml)
-```yaml
-network:
-  host: 0.0.0.0
-  tcp_port: 5000
-  http_port: 81
-  api_port: 5001
-  max_connections: 1000
-  timeout: 30  # seconds
-
-camera:
-  source: 0  # 0 for default camera
-  resolution:
-    width: 1280
-    height: 720
-  fps: 30
-  format: MJPG
-  quality: 90
-  rotation: 0
-  mirror: false
-  filters:
-    - name: grayscale
-      enabled: false
-    - name: blur
-      enabled: false
-      kernel_size: 5
-
-server:
-  debug: false
-  log_level: INFO
-  log_file: /var/log/wifi-emulator.log
-  pid_file: /var/run/wifi-emulator.pid
-
-security:
-  enable_auth: true
-  api_key: your-secure-api-key
-  jwt_secret: your-jwt-secret
-  allowed_ips:
-    - 127.0.0.1/32
-    - 192.168.1.0/24
-  rate_limit:
-    enabled: true
-    requests: 100
-    per_seconds: 60
-
-monitoring:
-  enabled: true
-  port: 9090
-  metrics_endpoint: /metrics
-  health_check: /health
-
-api:
-  enabled: true
-  base_path: /api/v1
-  cors:
-    enabled: true
-    origins:
-      - "*"
-    methods: ["GET", "POST", "PUT", "DELETE"]
-    headers: ["Content-Type", "Authorization"]
-
-database:
-  enabled: false
-  type: sqlite  # or postgresql, mysql
-  path: data/db.sqlite
-  host: localhost
-  port: 5432
-  name: wifi_emulator
-  user: user
-
-mqtt:
-  enabled: false
-  broker: mqtt://localhost:1883
-  username: user
-  password: pass
-  topics:
-    status: wifi-emulator/status
-    commands: wifi-emulator/commands
-
-web:
-  enabled: true
-  port: 8080
-  static_path: static
-  templates_path: templates
-  debug: false
-  theme: dark  # or light
-
-notifications:
-  email:
-    enabled: false
-    smtp_host: smtp.example.com
-    smtp_port: 587
-    username: user@example.com
-    password: your-password
-    from: no-reply@example.com
-    to: admin@example.com
-  
-  slack:
-    enabled: false
-    webhook_url: https://hooks.slack.com/services/...
-    channel: #alerts
-```
-
-## 🛠 Advanced Configuration
-
-### Custom Middleware
-```python
-from tcp_server.middleware import BaseMiddleware
-
-class CustomAuthMiddleware(BaseMiddleware):
-    async def process_request(self, request):
-        # Validate API key
-        if not self.validate_api_key(request.headers.get('X-API-Key')):
-            raise UnauthorizedError("Invalid API key")
-        return await super().process_request(request)
-```
-
-### Custom Protocol
-```python
-from tcp_server.protocols import BaseProtocol
-
-class CustomProtocol(BaseProtocol):
-    def __init__(self):
-        super().__init__(delimiter=b'\r\n')
-        
-    def encode_message(self, message):
-        # Custom message encoding
-        return json.dumps(message).encode() + self.delimiter
-        
-    def decode_message(self, data):
-        # Custom message decoding
-        return json.loads(data.decode().strip())
-```
-
-## 🧪 Testing and Quality Assurance
-
-### Running Tests
-```bash
-# Run all tests
-pytest tests/
-
-# Run with coverage report
-pytest --cov=src tests/
-
-# Run specific test
-pytest tests/test_tcp_server.py::TestTCPServer::test_connection
-```
-
-### Linting and Code Style
-```bash
-# Run flake8
-flake8 src/
-
-# Run black code formatter
-black src/
-
-# Run isort for import sorting
-isort src/
-```
-
-### Security Scanning
-```bash
-# Bandit for security issues
-bandit -r src/
-
-# Safety for dependency vulnerabilities
-safety check
-```
-
-## 📦 Deployment
-
-### Docker Compose
-```yaml
-version: '3.8'
-
-services:
-  wifi-emulator:
-    build: .
-    ports:
-      - "5000:5000"
-      - "81:81"
-    volumes:
-      - ./config:/app/config
-    environment:
-      - LOG_LEVEL=INFO
-    restart: unless-stopped
-    networks:
-      - wifi-net
-
-networks:
-  wifi-net:
-    driver: bridge
-```
-
-### Kubernetes Deployment
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: wifi-emulator
-  labels:
-    app: wifi-emulator
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: wifi-emulator
-  template:
-    metadata:
-      labels:
-        app: wifi-emulator
-    spec:
-      containers:
-      - name: wifi-emulator
-        image: yourusername/wifi-emulator:latest
-        ports:
-        - containerPort: 5000
-        - containerPort: 81
-        envFrom:
-        - configMapRef:
-            name: wifi-emulator-config
-        resources:
-          limits:
-            cpu: "1"
-            memory: "512Mi"
-          requests:
-            cpu: "0.5"
-            memory: "256Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: wifi-emulator
-spec:
-  selector:
-    app: wifi-emulator
-  ports:
-  - name: tcp
-    port: 5000
-    targetPort: 5000
-  - name: http
-    port: 81
-    targetPort: 81
-  type: LoadBalancer
-```
-
-## 📚 API Reference
-
-### TCP Server API
-
-#### `POST /api/v1/connect`
-Establish a new connection to the server.
-
-**Request:**
-```http
-POST /api/v1/connect HTTP/1.1
-Content-Type: application/json
-
-{
-  "client_id": "client-123",
-  "timeout": 30
-}
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "connection_id": "conn-abc123",
-  "timestamp": "2025-09-22T01:23:45Z"
-}
-```
-
-### ESP32-CAM API
-
-#### `GET /api/v1/stream`
-Get MJPEG video stream.
-
-**Parameters:**
-- `quality`: Video quality (1-100)
-- `fps`: Frames per second
-- `resolution`: Video resolution (e.g., 1280x720)
-
-**Example:**
-```http
-GET /api/v1/stream?quality=90&fps=30&resolution=1280x720
-```
-
 ## 🤝 Contributing
 
 ### Development Workflow
